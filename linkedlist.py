@@ -45,18 +45,46 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes"""
-        # TODO: count number of items
-        pass
+        count = 0
+        current_node = self.head
+        # if we have a head, go ahead
+        while current_node is not None:
+            # increase the count by one
+            count += 1
+            # set the reference to the next node, and keep counting
+            current_node = current_node.next
+        return count
+
 
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
         # TODO: append given item
-        pass
+        if self.head is None:
+            self.head = Node(item)
+            self.tail = self.head
+
+        elif self.head == self.tail:
+            self.tail = Node(item)
+            self.head.next = self.tail
+        else:
+            new_tail = Node(item)
+            self.tail.next = new_tail
+            self.tail = new_tail
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
         # TODO: prepend given item
-        pass
+        if self.head is None:
+            self.head = Node(item)
+            self.tail = self.head
+        elif self.head == self.tail:
+            self.head = Node(item)
+            self.head.next = self.tail
+        else:
+            new_head = Node(item)
+            new_head.next = self.head
+            self.head = new_head
+
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
