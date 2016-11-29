@@ -7,6 +7,8 @@ class Node(object):
 
     def __init__(self, data):
         """Initialize this node with the given data"""
+        """We instantiate the new node object, with no data in it, and no pointer
+           to the next node ( could change )"""
         self.data = data
         self.next = None
 
@@ -14,16 +16,23 @@ class Node(object):
         """Return a string representation of this node"""
         return 'Node({})'.format(repr(self.data))
 
-
+# Our LinkedList class takes an object
 class LinkedList(object):
-
+    """in iterable is an object with a next method, if
+    we do object.next it'll cause us to do iteration"""
     def __init__(self, iterable=None):
         """Initialize this linked list; append the given items, if any"""
+        # This instantiates the empty linked list, no head, no tail
         self.head = None
         self.tail = None
+        # (like feeding in a list )if it receives a list, return that object, then return the next one
         if iterable:
+            # iterate through the iterable
             for item in iterable:
+                # grab the current object it's iterating through and add it to our linkedList
                 self.append(item)
+                #Now our linked list class contains objects
+
 
     def __repr__(self):
         """Return a string representation of this linked list"""
@@ -31,39 +40,49 @@ class LinkedList(object):
 
     def as_list(self):
         """Return a list of all items in this linked list"""
+        ''' In this method we sort of convert into a list '''
         result = []
         current = self.head
         while current is not None:
             result.append(current.data)
-            # result.append(current)
             current = current.next
         return result
 
+    # self is the LinkedList here, we're checking if the linked list is empty
     def is_empty(self):
         """Return True if this linked list is empty, or False"""
+        # if there is no node in the list, it's emtpy
+
         return self.head is None
 
     def length(self):
         """Return the length of this linked list by traversing its nodes"""
+        # at first, we set the count to zero
         count = 0
+        # we set our current node (start) to be the head of the linked list
         current_node = self.head
-        # if we have a head, go ahead
+        # if the current node hasn't reached the end of the linked list keep iterating
         while current_node is not None:
-            # increase the count by one
+            # currrent node is not the last one, so increase the count by 1
             count += 1
-            # set the reference to the next node, and keep counting
+            # then set the new current node to the next node. This allows us to keep iterating. Next to next to next to next
             current_node = current_node.next
+        # then we return the count
         return count
 
 
+# lets append a new item to the linked list
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
-        # TODO: append given item
+        """
+        If the linked list is empty, add a node to it.
+        Then set it as the head and the tail ( so that we could add to it ( if we have a tail, it's also adding a reference to it))
+        """
         if self.head is None:
             self.head = Node(item)
             self.tail = self.head
-
         elif self.head == self.tail:
+            # if it's the tail, add a new node to it
             self.tail = Node(item)
             self.head.next = self.tail
         else:
